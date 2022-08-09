@@ -1,7 +1,7 @@
 # Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
 services:
-  dotnet-api:
-    image: dotnet-awesome/dotnet-api:latest
+  dotnet-api-dev:
+    image: dotnet-awesome/dotnet-api-dev:latest
     build:
       context: .
       dockerfile: ../Dockerfile
