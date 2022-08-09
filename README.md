@@ -1,6 +1,9 @@
 # API
 
-
+## Description
+- An E-Commerce platform where different products can be sold through shops
+- Users (Admins) can create shops and create products in those shops
+- Users (Clients) can register and login through Email & Password or third party apps (google)
 
 ## Running Locally
 
