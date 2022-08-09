@@ -3,8 +3,8 @@ services:
   dotnet-api-dev:
     image: dotnet-awesome/dotnet-api-dev:latest
     build:
-      context: .
-      dockerfile: ../Dockerfile
+      context: ../.
+      dockerfile: Dockerfile
     ports:
       - 5050:5050
     environment:
@@ -22,4 +22,4 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: dotnet_api
     volumes:
-      - ./dotnet-psqldb-dev:/var/lib/postgresql/data
+      - ../pgdata:/var/lib/postgresql/data
