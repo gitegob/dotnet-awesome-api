@@ -1,7 +1,6 @@
 using Dotnet_API.Dto;
 using Dotnet_API.Models;
 using Dotnet_API.Services;
-using Dotnet_API.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +16,13 @@ public class ProductController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Product>> CreateProduct(CreateProductDto dto)
     {
-        var userId = CurrentUser.Get("id");
-        var result = await _productService.CreateProduct(dto, int.Parse(userId));
+        var result = await _productService.CreateProduct(dto);
         return Ok(new ApiResponse("Product created", result));
     }
+
     [HttpGet]
-    public async Task<ActionResult<Page<ViewOnlyProductDtoClass>>> GetProducts([FromQuery] PaginationParams paginationParams)
+    public async Task<ActionResult<Page<ViewOnlyProductDtoClass>>> GetProducts(
+        [FromQuery] PaginationParams paginationParams)
     {
         var result = await _productService.GetProducts(paginationParams);
         return Ok(new ApiResponse("Products retrieved", result));
@@ -41,5 +41,4 @@ public class ProductController : ControllerBase
         await _productService.RemoveProduct(id);
         return Ok(new ApiResponse("Product retrieved"));
     }
-
 }
