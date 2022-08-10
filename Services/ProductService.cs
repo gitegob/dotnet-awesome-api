@@ -1,4 +1,3 @@
-using Dotnet_API.Authorization;
 using Dotnet_API.Dto;
 using Dotnet_API.Exceptions;
 using Dotnet_API.Models;
@@ -13,9 +12,8 @@ public class ProductService
     private readonly DatabaseContext _db;
     public ProductService(DatabaseContext dbContext) => (_db) = (dbContext);
 
-    public async Task<Product> CreateProduct(CreateProductDto dto)
+    public async Task<Product> CreateProduct(CreateProductDto dto, int userId)
     {
-        var userId = int.Parse(CurrentUser.Get("id"));
         var newProduct = new Product
         {
             Name = dto.Name,
