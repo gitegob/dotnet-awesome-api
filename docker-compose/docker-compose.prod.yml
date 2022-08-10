@@ -18,5 +18,5 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: dotnet_api
     volumes:
-      - ./dotnet-psqldb-prod:/var/lib/postgresql/data
+      - ../pgdata:/var/lib/postgresql/data
 

@@ -61,7 +61,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             OnTokenValidated = async context =>
             {
-                var email = context.Principal.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault().Value;
+                var email = context.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
                 var userService = context.HttpContext.RequestServices.GetRequiredService<UserService>();
                 var existingUser = await userService.GetByEmail(email);
                 if (existingUser == null)
@@ -81,7 +81,7 @@ builder.Services.AddScoped<ProductService>();
 
 var app = builder.Build();
 
-// Initialize the Database
+// Initialize the Database seeds or migrations
 DatabaseInitializer.Initialize(app);
 
 // Configure the HTTP request pipeline.

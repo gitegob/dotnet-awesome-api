@@ -55,8 +55,8 @@ public class JwtService
             return new JwtPayload
             {
                 Id = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value),
-                Email = jwtToken.Claims.First(x => x.Type == "email").Value,
-                Role = jwtToken.Claims.First(x => x.Type == "role").Value
+                Email = jwtToken.Claims.First(x => x.Type == ClaimTypes.Email).Value,
+                Role = jwtToken.Claims.First(x => x.Type == ClaimTypes.Role).Value
             };
         }
         catch
