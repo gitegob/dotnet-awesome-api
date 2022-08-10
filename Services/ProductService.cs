@@ -14,6 +14,7 @@ public class ProductService
 
     public async Task<Product> CreateProduct(CreateProductDto dto, int userId)
     {
+        var userId = (int)CurrentUser.Get("id");
         var newProduct = new Product
         {
             Name = dto.Name,
