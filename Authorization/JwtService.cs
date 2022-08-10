@@ -31,38 +31,4 @@ public class JwtService
         var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
         return jwtToken;
     }
-
-    public JwtPayload? ValidateToken(string token)
-    {
-        if (token == null)
-            return null;
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_appSettings.Jwt.Key);
-        try
-        {
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-            }, out var validatedToken);
-
-            var jwtToken = (JwtSecurityToken)validatedToken;
-
-            // return user id from JWT token if validation successful
-            return new JwtPayload
-            {
-                Id = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value),
-                Email = jwtToken.Claims.First(x => x.Type == "email").Value,
-                Role = jwtToken.Claims.First(x => x.Type == "role").Value
-            };
-        }
-        catch
-        {
-            // return null if validation fails
-            return null;
-        }
-    }
 }
