@@ -1,4 +1,4 @@
-namespace Dotnet_API.Utils;
+namespace Dotnet_API.Authorization;
 
 public static class CurrentUser
 {
