@@ -62,10 +62,10 @@ public class ProductService
         return newProduct;
     }
 
-    public async Task<Page<ViewOnlyProductDtoClass>> GetProducts(PaginationParams paginationParams)
+    public async Task<Page<ViewOnlyProductDto>> GetProducts(PaginationParams paginationParams)
     {
         var query = _db.Products.Where(s => !s.IsDeleted).OrderByDescending(s => s.CreatedAt)
-            .Select(p => new ViewOnlyProductDtoClass(p));
+            .Select(p => new ViewOnlyProductDto(p.Id,p.Name,p.Slug,p.Description,p.ProductType,p.Status,p.Price,p.Image,p.Quantity,p.InStock));
         var result = await PaginationUtil.Paginate(query, paginationParams.Page, paginationParams.Size);
         return result;
     }
@@ -76,11 +76,11 @@ public class ProductService
         if (product == null) throw new NotFoundException("Product not found");
         return product;
     }
-    public async Task<ViewOnlyProductDtoClass?> GetProduct(int id)
+    public async Task<ViewOnlyProductDto?> GetProduct(int id)
     {
         var product = await GetOne(id);
         if (product == null) throw new NotFoundException("Product not found");
-        return new ViewOnlyProductDtoClass(product);
+        return new ViewOnlyProductDto(product.Id,product.Name,product.Slug,product.Description,product.ProductType,product.Status,product.Price,product.Image,product.Quantity,product.InStock);
     }
 
     // public async Task<Product?> UpdateProduct(int id, UpdateProductDto productDto)
