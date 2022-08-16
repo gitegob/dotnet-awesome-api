@@ -21,7 +21,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<Page<ViewOnlyProductDtoClass>>> GetProducts(
+    public async Task<ActionResult<Page<ViewOnlyProductDto>>> GetProducts(
         [FromQuery] PaginationParams paginationParams)
     {
         var result = await _productService.GetProducts(paginationParams);
@@ -29,7 +29,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ViewOnlyProductDtoClass>> GetProduct(int id)
+    public async Task<ActionResult<ViewOnlyProductDto>> GetProduct(int id)
     {
         var result = await _productService.GetProduct(id);
         return Ok(new ApiResponse("Product retrieved", result));

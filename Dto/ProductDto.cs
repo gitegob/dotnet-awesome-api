@@ -53,48 +53,15 @@ public record UpdateProductDto(
     bool? InStock = null
 );
 
-// public record ViewOnlyProductDto(
-//     int Id,
-//     string? Name,
-//     string? Slug,
-//     string? Description = null,
-//     [EnumDataType(typeof(EProductType))] EProductType? ProductType = null,
-//     [EnumDataType(typeof(EProductStatus)),] EProductStatus? Status = null,
-//     double? Price = null,
-//     bool? IsTaxable = null,
-//     string? Image = null,
-//     int? Quantity = null,
-//     string? Unit = null,
-//     bool? InStock = null
-// );
-
-public class ViewOnlyProductDtoClass
-{
-    public ViewOnlyProductDtoClass(Product product)
-    {
-        Id = product.Id;
-        Name = product.Name;
-        Slug = product.Slug;
-        Description = product.Description;
-        ProductType = product.ProductType;
-        Status = product.Status;
-        InStock = product.InStock;
-        Image = product.Image;
-        Price = product.Price;
-        Quantity = product.Quantity;
-    }
-    public int? Id { get; set; }
-    public string? Name { get; set; }
-    public string? Slug { get; set; }
-    public string? Description { get; set; }
-
-    [EnumDataType(typeof(EProductType))]
-    public EProductType? ProductType { get; set; }
-
-    [EnumDataType(typeof(EProductStatus))]
-    public EProductStatus? Status { get; set; }
-    public bool? InStock { get; set; }
-    public string? Image { get; set; }
-    public double? Price { get; set; }
-    public int? Quantity { get; set; }
-}
+public record ViewOnlyProductDto(
+    int Id,
+    string? Name,
+    string? Slug,
+    string? Description = null,
+    [EnumDataType(typeof(EProductType))] EProductType? ProductType = null,
+    [EnumDataType(typeof(EProductStatus)),] EProductStatus? Status = null,
+    double? Price = null,
+    string? Image = null,
+    int? Quantity = null,
+    bool? InStock = null
+);
