@@ -1,5 +1,8 @@
 namespace Dotnet_API.Authorization;
 
+/**
+ * Jwt payload
+ */
 public class JwtPayload
 {
     public int Id { get; set; }
