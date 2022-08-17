@@ -11,10 +11,7 @@ public class AuthController : ControllerBase
 {
     private readonly AuthService _authService;
 
-    public AuthController(AuthService authService)
-    {
-        _authService = authService;
-    }
+    public AuthController(AuthService authService) => _authService = authService;
 
     [HttpPost("signup")]
     public async Task<ActionResult<ApiResponse<User>>> Register(UserSignupDto userSignupDto)
