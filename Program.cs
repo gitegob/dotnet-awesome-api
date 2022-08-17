@@ -1,6 +1,7 @@
 global using System;
 global using System.Text;
 global using Dotnet_API.Data;
+global using Dotnet_API.Utils;
 using System.Security.Claims;
 using System.Text.Json.Serialization;
 using Dotnet_API.Authorization;
@@ -57,18 +58,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = false,
             ValidateAudience = false
         };
-        options.Events = new JwtBearerEvents()
+        options.Events = new JwtBearerEvents
         {
             OnTokenValidated = async context =>
             {
                 var email = context.Principal.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault().Value;
                 var userService = context.HttpContext.RequestServices.GetRequiredService<UserService>();
                 var existingUser = await userService.GetByEmail(email);
-                if (existingUser == null)
-                {
-                    context.Fail("Invalid token");
-                }
-            },
+                if (existingUser == null) context.Fail("Invalid token");
+            }
         };
     });
 builder.Services.AddHttpContextAccessor();

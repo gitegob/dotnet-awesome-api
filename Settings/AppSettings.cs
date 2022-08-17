@@ -6,14 +6,14 @@ public class AppSettings
     public ConnectionStrings? ConnectionStrings { get; init; }
     public Jwt? Jwt { get; init; }
     public string? DefaultPassword { get; init; }
-};
+}
 
 public class ConnectionStrings
 {
     public string? Default { get; init; }
-};
+}
 
 public record Jwt
 {
     public string? Key { get; init; }
-};
+}

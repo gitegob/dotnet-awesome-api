@@ -3,7 +3,6 @@ using Dotnet_API.Dto;
 using Dotnet_API.Enums;
 using Dotnet_API.Exceptions;
 using Dotnet_API.Models;
-using Dotnet_API.Utils;
 
 namespace Dotnet_API.Services;
 
@@ -12,8 +11,10 @@ public class AuthService
     private readonly JwtService _jwtService;
     private readonly UserService _userService;
 
-    public AuthService(JwtService jwtService, UserService userService) =>
+    public AuthService(JwtService jwtService, UserService userService)
+    {
         (_jwtService, _userService) = (jwtService, userService);
+    }
 
     public async Task<User> Signup(UserSignupDto userSignupDto)
     {
@@ -31,5 +32,4 @@ public class AuthService
         var jwtToken = _jwtService.GenerateToken(foundUser);
         return jwtToken;
     }
-
 }

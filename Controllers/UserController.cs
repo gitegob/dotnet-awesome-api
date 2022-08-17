@@ -11,7 +11,7 @@ namespace Dotnet_API.Controllers;
 [Authorize]
 public class UserController : ControllerBase
 {
-    private UserService _userService;
+    private readonly UserService _userService;
 
     public UserController(UserService userService)
     {
@@ -27,7 +27,8 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ApiResponse<Page<ViewUserDto>>>> GetUsers([FromQuery] PaginationParams paginationParams)
+    public async Task<ActionResult<ApiResponse<Page<ViewUserDto>>>> GetUsers(
+        [FromQuery] PaginationParams paginationParams)
     {
         var result = await _userService.GetUsers(paginationParams);
         return Ok(new ApiResponse("Users retrieved", result));

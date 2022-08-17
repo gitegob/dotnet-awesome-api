@@ -5,9 +5,9 @@ namespace Dotnet_API.Exceptions;
 
 public class HttpExceptionFilter : IActionFilter, IOrderedFilter
 {
-    public int Order => int.MaxValue - 10;
-
-    public void OnActionExecuting(ActionExecutingContext context) { }
+    public void OnActionExecuting(ActionExecutingContext context)
+    {
+    }
 
     public void OnActionExecuted(ActionExecutedContext context)
     {
@@ -15,7 +15,7 @@ public class HttpExceptionFilter : IActionFilter, IOrderedFilter
         {
             context.Result = new ObjectResult(httpException.Value)
             {
-                StatusCode = httpException.StatusCode,
+                StatusCode = httpException.StatusCode
             };
 
             context.ExceptionHandled = true;
@@ -30,4 +30,6 @@ public class HttpExceptionFilter : IActionFilter, IOrderedFilter
             context.ExceptionHandled = true;
         }
     }
+
+    public int Order => int.MaxValue - 10;
 }

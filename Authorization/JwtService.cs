@@ -21,9 +21,9 @@ public class JwtService
     {
         var claims = new List<Claim>
         {
-            new Claim("id", user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role.GetDisplayName())
+            new("id", user.Id.ToString()),
+            new(ClaimTypes.Email, user.Email),
+            new(ClaimTypes.Role, user.Role.GetDisplayName())
         };
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.Jwt.Key));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
@@ -46,7 +46,7 @@ public class JwtService
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = false,
-                ValidateAudience = false,
+                ValidateAudience = false
             }, out var validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;

@@ -1,4 +1,3 @@
-using Dotnet_API.Settings;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet_API.Data;

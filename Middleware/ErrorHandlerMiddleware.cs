@@ -7,8 +7,8 @@ namespace Dotnet_API.Middleware;
 
 public class ErrorHandlerMiddleware
 {
-    private readonly RequestDelegate _next;
     private readonly ILogger _logger;
+    private readonly RequestDelegate _next;
 
     public ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
     {
@@ -34,7 +34,7 @@ public class ErrorHandlerMiddleware
             };
             _logger.LogError(error.StackTrace);
             var result =
-                JsonSerializer.Serialize(new ApiResponse<Object>(error.Message));
+                JsonSerializer.Serialize(new ApiResponse<object>(error.Message));
             await response.WriteAsync(result);
         }
     }

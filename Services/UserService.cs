@@ -1,7 +1,7 @@
+using AutoMapper.QueryableExtensions;
 using Dotnet_API.Dto;
 using Dotnet_API.Exceptions;
 using Dotnet_API.Models;
-using Dotnet_API.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet_API.Services;
@@ -9,6 +9,7 @@ namespace Dotnet_API.Services;
 public class UserService
 {
     private readonly DatabaseContext _db;
+
     public UserService(DatabaseContext dbContext)
     {
         _db = dbContext;
@@ -35,8 +36,7 @@ public class UserService
 
     public async Task<Page<ViewUserDto>> GetUsers(PaginationParams paginationParams)
     {
-        var query = _db.Users.Where(u => !u.IsDeleted)
-            .Select(s => new ViewUserDto(s.Id, s.FirstName, s.LastName, s.Email, s.Role));
+        var query = _db.Users.Where(u => !u.IsDeleted).ProjectTo<ViewUserDto>(MappingUtil.Map<User, ViewUserDto>());
         var results = await PaginationUtil.Paginate(query, paginationParams.Page, paginationParams.Size);
         return results;
     }
