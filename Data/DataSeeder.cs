@@ -12,10 +12,8 @@ public class DataSeeder
     private readonly DatabaseContext _dbContext;
     private readonly Faker _faker = new();
 
-    public DataSeeder(DatabaseContext dbContext, IOptions<AppSettings> appSettings)
-    {
+    public DataSeeder(DatabaseContext dbContext, IOptions<AppSettings> appSettings) =>
         (_dbContext, _appSettings) = (dbContext, appSettings.Value);
-    }
 
     public void Seed()
     {
