@@ -2,19 +2,20 @@ using Bogus;
 using Dotnet_API.Enums;
 using Dotnet_API.Models;
 using Dotnet_API.Settings;
-using Dotnet_API.Utils;
 using Microsoft.Extensions.Options;
 
 namespace Dotnet_API.Data;
 
 public class DataSeeder
 {
-    private readonly DatabaseContext _dbContext;
     private readonly AppSettings _appSettings;
-    private Faker _faker = new();
+    private readonly DatabaseContext _dbContext;
+    private readonly Faker _faker = new();
 
-    public DataSeeder(DatabaseContext dbContext, IOptions<AppSettings> appSettings) =>
+    public DataSeeder(DatabaseContext dbContext, IOptions<AppSettings> appSettings)
+    {
         (_dbContext, _appSettings) = (dbContext, appSettings.Value);
+    }
 
     public void Seed()
     {
@@ -27,7 +28,7 @@ public class DataSeeder
     private void SeedUsers()
     {
         if (_dbContext.Users.Any()) return;
-        var users = new List<User>()
+        var users = new List<User>
         {
             new()
             {
@@ -37,7 +38,7 @@ public class DataSeeder
                 Password = PasswordEncryption.HashPassword(_appSettings.DefaultPassword),
                 Phone = "+250785721391",
                 Address = "Kigali",
-                Role = ERoles.ADMIN,
+                Role = ERoles.ADMIN
             }
         };
 
@@ -76,7 +77,7 @@ public class DataSeeder
             Slug = _faker.Random.Word(),
             Details = _faker.Commerce.ProductMaterial(),
             Image = _faker.Image.PicsumUrl(),
-            Icon = _faker.Image.PicsumUrl(),
+            Icon = _faker.Image.PicsumUrl()
         }).ToList();
         _dbContext.Categories.AddRange(categories);
         _dbContext.SaveChanges();
@@ -90,7 +91,7 @@ public class DataSeeder
         var products = Enumerable.Range(1, 30)
             .Select(i =>
             {
-                return new Product()
+                return new Product
                 {
                     Name = _faker.Company.CompanyName(),
                     Slug = _faker.Random.Word(),

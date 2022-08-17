@@ -13,5 +13,4 @@ public class PaginationUtil
             .ToListAsync();
         return new Page<T>(result, page, size, queryable.Count());
     }
-
 }

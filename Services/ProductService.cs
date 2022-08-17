@@ -1,8 +1,8 @@
+using AutoMapper.QueryableExtensions;
 using Dotnet_API.Authorization;
 using Dotnet_API.Dto;
 using Dotnet_API.Exceptions;
 using Dotnet_API.Models;
-using Dotnet_API.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,7 +11,11 @@ namespace Dotnet_API.Services;
 public class ProductService
 {
     private readonly DatabaseContext _db;
-    public ProductService(DatabaseContext dbContext) => (_db) = (dbContext);
+
+    public ProductService(DatabaseContext dbContext)
+    {
+        _db = dbContext;
+    }
 
     public async Task<Product> CreateProduct(CreateProductDto dto)
     {
@@ -65,7 +69,7 @@ public class ProductService
     public async Task<Page<ViewOnlyProductDto>> GetProducts(PaginationParams paginationParams)
     {
         var query = _db.Products.Where(s => !s.IsDeleted).OrderByDescending(s => s.CreatedAt)
-            .Select(p => new ViewOnlyProductDto(p.Id,p.Name,p.Slug,p.Description,p.ProductType,p.Status,p.Price,p.Image,p.Quantity,p.InStock));
+            .ProjectTo<ViewOnlyProductDto>(MappingUtil.Map<Product, ViewOnlyProductDto>());
         var result = await PaginationUtil.Paginate(query, paginationParams.Page, paginationParams.Size);
         return result;
     }
@@ -76,11 +80,13 @@ public class ProductService
         if (product == null) throw new NotFoundException("Product not found");
         return product;
     }
+
     public async Task<ViewOnlyProductDto?> GetProduct(int id)
     {
         var product = await GetOne(id);
         if (product == null) throw new NotFoundException("Product not found");
-        return new ViewOnlyProductDto(product.Id,product.Name,product.Slug,product.Description,product.ProductType,product.Status,product.Price,product.Image,product.Quantity,product.InStock);
+        return new ViewOnlyProductDto(product.Id, product.Name, product.Slug, product.Description, product.ProductType,
+            product.Status, product.Price, product.Image, product.Quantity, product.InStock);
     }
 
     // public async Task<Product?> UpdateProduct(int id, UpdateProductDto productDto)

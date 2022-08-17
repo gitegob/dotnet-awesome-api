@@ -7,7 +7,11 @@ public class ApiResponse
     {
     }
 
-    public ApiResponse(string message, object? payload = default) => (Message, Payload) = (message, payload);
+    public ApiResponse(string message, object? payload = default)
+    {
+        (Message, Payload) = (message, payload);
+    }
+
     public string Message { get; set; } = string.Empty;
     public object? Payload { get; set; }
 }
@@ -19,7 +23,11 @@ public class ApiResponse<T> : ApiResponse
     {
     }
 
-    public ApiResponse(string message, T? payload = default) => (Message, Payload) = (message, payload);
+    public ApiResponse(string message, T? payload = default)
+    {
+        (Message, Payload) = (message, payload);
+    }
+
     public string Message { get; set; } = string.Empty;
-    public T? Payload { get; set; } = default;
+    public T? Payload { get; set; }
 }

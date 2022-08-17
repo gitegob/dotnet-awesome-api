@@ -9,13 +9,14 @@ namespace Dotnet_API.Controllers;
 [Route("/")]
 public class MainController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
+    private static readonly string[] Summaries =
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILogger<MainController> _logger;
     private readonly AppSettings _appSettings;
+
+    private readonly ILogger<MainController> _logger;
 
     public MainController(ILogger<MainController> logger, IOptions<AppSettings> appSettings)
     {

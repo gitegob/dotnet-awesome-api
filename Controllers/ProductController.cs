@@ -6,12 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet_API.Controllers;
 
-[ApiController, Route("/api/v1/products")]
+[ApiController]
+[Route("/api/v1/products")]
 [Authorize]
 public class ProductController : ControllerBase
 {
     private readonly ProductService _productService;
-    public ProductController(ProductService productService) => (_productService) = (productService);
+
+    public ProductController(ProductService productService)
+    {
+        _productService = productService;
+    }
 
     [HttpPost]
     public async Task<ActionResult<Product>> CreateProduct(CreateProductDto dto)

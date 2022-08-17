@@ -6,23 +6,26 @@ namespace Dotnet_API.Dto;
 public record CreateUserDto(
     [Required] string FirstName,
     [Required] string LastName,
-    [Required, EmailAddress] string Email,
+    [Required] [EmailAddress] string Email,
     [Required] string Password,
-    [Required, Phone] string Phone,
+    [Required] [Phone] string Phone,
     [Required] string Address,
-    [Required, EnumDataType(typeof(ERoles))] ERoles Role
+    [Required]
+    [EnumDataType(typeof(ERoles))]
+    ERoles Role
 );
 
 public record UserSignupDto(
     [Required] string FirstName,
     [Required] string LastName,
-    [Required, EmailAddress] string Email,
+    [Required] [EmailAddress] string Email,
     [Required] string Password,
-    [Required, Phone] string Phone,
+    [Required] [Phone] string Phone,
     [Required] string Address
 );
+
 public record UserLoginDto(
-    [Required, EmailAddress] string Email,
+    [Required] [EmailAddress] string Email,
     [Required] string Password
 );
 

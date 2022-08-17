@@ -9,6 +9,13 @@ public class DatabaseContext : DbContext
     {
     }
 
+
+    public DbSet<User>? Users { get; set; }
+    public DbSet<Product>? Products { get; set; }
+    public DbSet<ProductVariation>? ProductsVariations { get; set; }
+    public DbSet<Shop>? Shops { get; set; }
+    public DbSet<Category>? Categories { get; set; }
+
     public override int SaveChanges()
     {
         foreach (var entry in ChangeTracker.Entries())
@@ -61,11 +68,4 @@ public class DatabaseContext : DbContext
 
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
-
-
-    public DbSet<User>? Users { get; set; }
-    public DbSet<Product>? Products { get; set; }
-    public DbSet<ProductVariation>? ProductsVariations { get; set; }
-    public DbSet<Shop>? Shops { get; set; }
-    public DbSet<Category>? Categories { get; set; }
 }

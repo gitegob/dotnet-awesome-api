@@ -1,5 +1,3 @@
-using Dotnet_API.Models;
-
 namespace Dotnet_API.Dto;
 
 public record ViewOnlyShopDto(

@@ -12,7 +12,8 @@ public class Product : BaseEntity
     public string? Slug { get; set; }
     public string? Description { get; set; }
 
-    [EnumDataType(typeof(EProductType)), Column(TypeName = "varchar(255)")]
+    [EnumDataType(typeof(EProductType))]
+    [Column(TypeName = "varchar(255)")]
     public EProductType? ProductType { get; set; }
 
     public bool? InStock { get; set; }
@@ -23,7 +24,8 @@ public class Product : BaseEntity
     public string[] Gallery { get; set; } = Array.Empty<string>();
     public string? Image { get; set; }
 
-    [EnumDataType(typeof(EProductStatus)), Column(TypeName = "varchar(255)")]
+    [EnumDataType(typeof(EProductStatus))]
+    [Column(TypeName = "varchar(255)")]
     public EProductStatus? Status { get; set; }
 
     public int? Height { get; set; }
