@@ -10,7 +10,6 @@ public class MainController : ControllerBase
     [HttpGet(Name = "hello")]
     public ActionResult<string> Get()
     {
-        throw new NotFoundException();
         return "Hello";
     }
 }
