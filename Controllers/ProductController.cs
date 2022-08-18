@@ -1,5 +1,5 @@
 using Dotnet_API.Dto;
-using Dotnet_API.Models;
+using Dotnet_API.Entities;
 using Dotnet_API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +19,11 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(201)]
     public async Task<ActionResult<Product>> CreateProduct(CreateProductDto dto)
     {
         var result = await _productService.CreateProduct(dto);
-        return Ok(new ApiResponse("Product created", result));
+        return Created(nameof(CreateProduct), new ApiResponse("Product created", result));
     }
 
     [HttpGet]
@@ -38,6 +39,13 @@ public class ProductController : ControllerBase
     {
         var result = await _productService.GetProduct(id);
         return Ok(new ApiResponse("Product retrieved", result));
+    }
+    
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Product>> UpdateProduct(int id, UpdateProductDto dto)
+    {
+        var result = await _productService.UpdateProduct(id,dto);
+        return Ok(new ApiResponse("Product updated", result));
     }
 
     [HttpDelete("{id}")]

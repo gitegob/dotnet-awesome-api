@@ -7,9 +7,7 @@ namespace Dotnet_API.Controllers;
 [Route("/")]
 public class MainController : ControllerBase
 {
+
     [HttpGet(Name = "hello")]
-    public ActionResult<string> Get()
-    {
-        return "Hello";
-    }
+    public ActionResult<string> Get() => "Hello";
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Dotnet_API.Enums;
 
-namespace Dotnet_API.Models;
+namespace Dotnet_API.Entities;
 
 [Table("products")]
 public class Product : BaseEntity
@@ -14,26 +14,17 @@ public class Product : BaseEntity
 
     [EnumDataType(typeof(EProductType))]
     [Column(TypeName = "varchar(255)")]
-    public EProductType? ProductType { get; set; }
+    public EProductType? Type { get; set; }
 
     public bool? InStock { get; set; }
-    public bool? IsTaxable { get; set; }
-    public double? SalePrice { get; set; }
-    public double? MaxPrice { get; set; }
-    public double? MinPrice { get; set; }
-    public string[] Gallery { get; set; } = Array.Empty<string>();
-    public string? Image { get; set; }
+    public string[] Images { get; set; } = Array.Empty<string>();
 
     [EnumDataType(typeof(EProductStatus))]
     [Column(TypeName = "varchar(255)")]
     public EProductStatus? Status { get; set; }
 
-    public int? Height { get; set; }
-    public int? Length { get; set; }
-    public int? Width { get; set; }
     public double? Price { get; set; }
     public int? Quantity { get; set; }
-    public string? Unit { get; set; }
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
     public virtual ICollection<ProductVariation> Variations { get; set; } = new List<ProductVariation>();
     public int? ShopId { get; set; }

@@ -1,8 +1,8 @@
 using Dotnet_API.Authorization;
 using Dotnet_API.Dto;
+using Dotnet_API.Entities;
 using Dotnet_API.Enums;
 using Dotnet_API.Exceptions;
-using Dotnet_API.Models;
 
 namespace Dotnet_API.Services;
 

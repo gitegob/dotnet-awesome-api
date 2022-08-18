@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Dotnet_API.Enums;
 
-namespace Dotnet_API.Models;
+namespace Dotnet_API.Entities;
 
 [Table("users")]
 public class User : BaseEntity

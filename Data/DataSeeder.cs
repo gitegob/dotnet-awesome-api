@@ -1,6 +1,6 @@
 using Bogus;
+using Dotnet_API.Entities;
 using Dotnet_API.Enums;
-using Dotnet_API.Models;
 using Dotnet_API.Settings;
 using Microsoft.Extensions.Options;
 
@@ -94,13 +94,11 @@ public class DataSeeder
                     Name = _faker.Company.CompanyName(),
                     Slug = _faker.Random.Word(),
                     Description = _faker.Company.CatchPhrase(),
-                    ProductType = _faker.PickRandom<EProductType>(),
+                    Type = _faker.PickRandom<EProductType>(),
                     Status = _faker.PickRandom<EProductStatus>(),
                     InStock = true,
-                    IsTaxable = true,
                     Price = double.Parse(_faker.Commerce.Price()),
-                    Gallery = new[] { _faker.Image.PicsumUrl(), _faker.Image.PicsumUrl() },
-                    Image = _faker.Image.PicsumUrl(),
+                    Images = new[] { _faker.Image.PicsumUrl(), _faker.Image.PicsumUrl() },
                     Shop = _faker.PickRandom(shops),
                     Categories = categories.OrderBy(c => new Random().Next()).Take(3).ToList()
                 };

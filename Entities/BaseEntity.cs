@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dotnet_API.Models;
+namespace Dotnet_API.Entities;
 
 public abstract class BaseEntity
 {

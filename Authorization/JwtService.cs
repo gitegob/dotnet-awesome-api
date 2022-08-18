@@ -1,6 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Dotnet_API.Models;
+using Dotnet_API.Entities;
 using Dotnet_API.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

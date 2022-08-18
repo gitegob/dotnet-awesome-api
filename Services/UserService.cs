@@ -1,7 +1,7 @@
 using AutoMapper.QueryableExtensions;
 using Dotnet_API.Dto;
+using Dotnet_API.Entities;
 using Dotnet_API.Exceptions;
-using Dotnet_API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet_API.Services;
