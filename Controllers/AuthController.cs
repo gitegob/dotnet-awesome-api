@@ -1,5 +1,5 @@
 using Dotnet_API.Dto;
-using Dotnet_API.Models;
+using Dotnet_API.Entities;
 using Dotnet_API.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +14,7 @@ public class AuthController : ControllerBase
     public AuthController(AuthService authService) => _authService = authService;
 
     [HttpPost("signup")]
+    [ProducesResponseType(201)]
     public async Task<ActionResult<ApiResponse<User>>> Register(UserSignupDto userSignupDto)
     {
         var result = await _authService.Signup(userSignupDto);

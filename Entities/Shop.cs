@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dotnet_API.Models;
+namespace Dotnet_API.Entities;
 
 [Table("shops")]
 public class Shop : BaseEntity

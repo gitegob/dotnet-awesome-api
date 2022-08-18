@@ -1,5 +1,5 @@
 using Dotnet_API.Dto;
-using Dotnet_API.Models;
+using Dotnet_API.Entities;
 using Dotnet_API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,10 +20,11 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "ADMIN")]
+    [ProducesResponseType(201)]
     public async Task<ActionResult<ApiResponse<User>>> CreateUser(CreateUserDto userRegisterDto)
     {
         var result = await _userService.RegisterUser(userRegisterDto);
-        return Created(nameof(CreateUser), new ApiResponse("Registration successful", result));
+        return CreatedAtAction(nameof(CreateUser), new ApiResponse("Registration successful", result));
     }
 
     [HttpGet]

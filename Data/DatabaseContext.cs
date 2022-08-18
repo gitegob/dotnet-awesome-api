@@ -1,4 +1,4 @@
-using Dotnet_API.Models;
+using Dotnet_API.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet_API.Data;

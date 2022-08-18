@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Dotnet_API.Entities;
 
-namespace Dotnet_API.Models;
+namespace Dotnet_API.Entities;
 
 [Table("categories")]
 public class Category : BaseEntity
