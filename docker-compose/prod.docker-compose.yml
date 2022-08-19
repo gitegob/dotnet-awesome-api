@@ -1,0 +1,23 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+services:
+  dotnet-api-prod:
+    image: dotnet-awesome/dotnet-api-prod:latest
+    build:
+      context: .
+      dockerfile: ../Dockerfile
+    ports:
+      - 5050:5050
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - dotnet-psqldb-prod
+    restart: unless-stopped
+
+  dotnet-psqldb-prod:
+    image: postgres:14-alpine
+    container_name: dotnet-psqldb-prod
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dotnet_api
+    volumes:
+      - ./dotnet-psqldb-prod:/var/lib/postgresql/data

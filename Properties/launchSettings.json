@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Dotnet_API": {
+    "Dev": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
@@ -19,7 +19,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Dotnet_API_Prod": {
+    "Prod": {
       "commandName": "Project",
       "dotnetRunMessages": false,
       "launchBrowser": false,

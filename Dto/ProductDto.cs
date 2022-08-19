@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Dotnet_API.Entities;
 using Dotnet_API.Enums;
 
 namespace Dotnet_API.Dto;
@@ -45,4 +46,4 @@ public record ViewOnlyProductDto(
     double? Price = null,
     string[]? Images = null,
     bool? InStock = null
-);
+    );
