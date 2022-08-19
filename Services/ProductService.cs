@@ -1,3 +1,4 @@
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Dotnet_API.Authorization;
 using Dotnet_API.Dto;
@@ -59,10 +60,15 @@ public class ProductService
 
     public async Task<Page<ViewOnlyProductDto>> GetProducts(PaginationParams paginationParams)
     {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<Product, ViewOnlyProductDto>();
+            cfg.CreateMap<Shop, ViewOnlyShopDto>();
+        });
         var query = _db.Products
             .Include(p=>p.Shop)
             .Where(s => !s.IsDeleted).OrderByDescending(s => s.CreatedAt)
-            .ProjectTo<ViewOnlyProductDto>(MappingUtil.Map<Product, ViewOnlyProductDto>());
+            .ProjectTo<ViewOnlyProductDto>(config);
         var result = await PaginationUtil.Paginate(query, paginationParams.Page, paginationParams.Size);
         return result;
     }
