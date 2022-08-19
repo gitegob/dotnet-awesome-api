@@ -22,7 +22,7 @@
 ## Running in docker
 
 -   ```bash
-    $ docker-compose -f docker-compose/docker-compose.dev.yml up
+    $ docker-compose -f docker-compose/dev.docker-compose.yml up
     ```
 
 ## Global formatting rules

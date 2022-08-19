@@ -59,7 +59,9 @@ public class ProductService
 
     public async Task<Page<ViewOnlyProductDto>> GetProducts(PaginationParams paginationParams)
     {
-        var query = _db.Products.Where(s => !s.IsDeleted).OrderByDescending(s => s.CreatedAt)
+        var query = _db.Products
+            .Include(p=>p.Shop)
+            .Where(s => !s.IsDeleted).OrderByDescending(s => s.CreatedAt)
             .ProjectTo<ViewOnlyProductDto>(MappingUtil.Map<Product, ViewOnlyProductDto>());
         var result = await PaginationUtil.Paginate(query, paginationParams.Page, paginationParams.Size);
         return result;
