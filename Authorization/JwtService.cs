@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Dotnet_API.Attributes;
 using Dotnet_API.Entities;
 using Dotnet_API.Settings;
 using Microsoft.Extensions.Options;
@@ -8,6 +9,7 @@ using Microsoft.OpenApi.Extensions;
 
 namespace Dotnet_API.Authorization;
 
+[ScopedService]
 public class JwtService
 {
     private readonly AppSettings _appSettings;

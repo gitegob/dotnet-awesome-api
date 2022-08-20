@@ -1,4 +1,5 @@
 using Bogus;
+using Dotnet_API.Attributes;
 using Dotnet_API.Entities;
 using Dotnet_API.Enums;
 using Dotnet_API.Settings;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace Dotnet_API.Data;
 
+[TransientService]
 public class DataSeeder
 {
     private readonly AppSettings _appSettings;

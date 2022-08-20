@@ -1,9 +1,10 @@
 using AutoMapper.QueryableExtensions;
+using Dotnet_API.Attributes;
 using Dotnet_API.Dto;
 using Dotnet_API.Entities;
 
 namespace Dotnet_API.Services;
-
+[ScopedService]
 public class CategoryService
 {
     private readonly DatabaseContext _db;
