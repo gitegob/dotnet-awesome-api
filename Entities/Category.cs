@@ -11,5 +11,5 @@ public class Category : BaseEntity
     public string? Details { get; set; }
     public string? Image { get; set; }
     public string? Icon { get; set; }
-    public ICollection<Product> Products { get; set; } = new List<Product>();
+    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

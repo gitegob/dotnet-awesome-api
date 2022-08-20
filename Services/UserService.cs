@@ -1,4 +1,5 @@
 using AutoMapper.QueryableExtensions;
+using Dotnet_API.Attributes;
 using Dotnet_API.Dto;
 using Dotnet_API.Entities;
 using Dotnet_API.Exceptions;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet_API.Services;
 
+[ScopedService]
 public class UserService
 {
     private readonly DatabaseContext _db;

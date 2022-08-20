@@ -46,5 +46,7 @@ public record ViewOnlyProductDto(
     double? Price = null,
     string[]? Images = null,
     bool? InStock = null,
-    ViewOnlyShopDto? Shop = null
+    ViewOnlyShopDto? Shop = null,
+    List<ViewCategoryDto>? Categories = null
+
 );

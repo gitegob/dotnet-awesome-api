@@ -6,7 +6,7 @@ namespace Dotnet_API.Dto;
 public record CreateUserDto(
     [Required] string FirstName,
     [Required] string LastName,
-    [Required] [EmailAddress] string Email,
+    [Required, EmailAddress] string Email,
     [Required] string Password,
     [Required] [Phone] string Phone,
     [Required] string Address,
@@ -18,9 +18,9 @@ public record CreateUserDto(
 public record UserSignupDto(
     [Required] string FirstName,
     [Required] string LastName,
-    [Required] [EmailAddress] string Email,
+    [Required, EmailAddress] string Email,
     [Required] string Password,
-    [Required] [Phone] string Phone,
+    [Required, Phone] string Phone,
     [Required] string Address
 );
 

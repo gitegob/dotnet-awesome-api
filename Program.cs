@@ -4,7 +4,7 @@ global using Dotnet_API.Data;
 global using Dotnet_API.Utils;
 using System.Security.Claims;
 using System.Text.Json.Serialization;
-using Dotnet_API.Authorization;
+using Dotnet_API.Extensions;
 using Dotnet_API.Middleware;
 using Dotnet_API.Services;
 using Dotnet_API.Settings;
@@ -24,12 +24,8 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default"));
 });
-builder.Services.AddTransient<DataSeeder>();
 
-builder.Services.AddControllers(options =>
-{
-    // options.Filters.Add<HttpExceptionFilter>();
-}).AddJsonOptions(options =>
+builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
@@ -47,6 +43,8 @@ builder.Services.AddSwaggerGen(options =>
     });
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
+
+// Register Authentication middleware
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -62,22 +60,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             OnTokenValidated = async context =>
             {
-                var email = context.Principal.Claims.Where(x => x.Type == ClaimTypes.Email).FirstOrDefault().Value;
+                var email = context.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
                 var userService = context.HttpContext.RequestServices.GetRequiredService<UserService>();
                 var existingUser = await userService.GetByEmail(email);
                 if (existingUser == null) context.Fail("Invalid token");
             }
         };
     });
+
 builder.Services.AddHttpContextAccessor();
 
-// Register services
-builder.Services.AddScoped<JwtService>();
-builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<ProductService>();
-builder.Services.AddScoped<ShopService>();
-builder.Services.AddScoped<CategoryService>();
+// Register all service classes with the [ScopedService], [TransientService] or [SingletonService] attributes
+builder.Services.RegisterServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -98,8 +92,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseMiddleware<LoggingMiddleware>();
-app.UseMiddleware<ErrorHandlerMiddleware>();
+app.RegisterMiddleware(); // Register all custom middleware with the [Middleware] attribute
 
 app.MapControllers();
 

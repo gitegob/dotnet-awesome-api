@@ -1,3 +1,4 @@
+using Dotnet_API.Attributes;
 using Dotnet_API.Authorization;
 using Dotnet_API.Dto;
 using Dotnet_API.Entities;
@@ -6,6 +7,7 @@ using Dotnet_API.Exceptions;
 
 namespace Dotnet_API.Services;
 
+[ScopedService]
 public class AuthService
 {
     private readonly JwtService _jwtService;

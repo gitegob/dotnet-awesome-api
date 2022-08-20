@@ -1,5 +1,8 @@
+using Dotnet_API.Attributes;
+
 namespace Dotnet_API.Middleware;
 
+[Middleware]
 public class LoggingMiddleware
 {
     private readonly ILogger _logger;

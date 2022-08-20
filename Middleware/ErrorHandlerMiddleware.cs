@@ -1,10 +1,12 @@
 using System.Net;
 using System.Text.Json;
+using Dotnet_API.Attributes;
 using Dotnet_API.Dto;
 using Dotnet_API.Exceptions;
 
 namespace Dotnet_API.Middleware;
 
+[Middleware]
 public class ErrorHandlerMiddleware
 {
     private readonly ILogger _logger;

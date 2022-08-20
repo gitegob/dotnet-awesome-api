@@ -7,6 +7,6 @@ public static class MappingUtil
     public static MapperConfiguration Map<TSource, TDestination>()
     {
         return new MapperConfiguration(cfg =>
-            cfg.CreateMap<TSource, TDestination>());          
+            cfg.CreateMap<TSource, TDestination>());
     }
 }

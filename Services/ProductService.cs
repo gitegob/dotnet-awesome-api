@@ -1,5 +1,7 @@
 using AutoMapper;
+using AutoMapper.Internal;
 using AutoMapper.QueryableExtensions;
+using Dotnet_API.Attributes;
 using Dotnet_API.Authorization;
 using Dotnet_API.Dto;
 using Dotnet_API.Entities;
@@ -9,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Dotnet_API.Services;
 
+[ScopedService]
 public class ProductService
 {
     private readonly DatabaseContext _db;
@@ -20,7 +23,7 @@ public class ProductService
 
     public async Task<Product> CreateProduct(CreateProductDto dto)
     {
-        var userId = (int)CurrentUser.Get("id");
+        var userId = (int)int.Parse(CurrentUser.Get("id"));
         var newProduct = new Product
         {
             Name = dto.Name,
@@ -60,15 +63,17 @@ public class ProductService
 
     public async Task<Page<ViewOnlyProductDto>> GetProducts(PaginationParams paginationParams)
     {
-        var config = new MapperConfiguration(cfg =>
+        var mapping = new MapperConfiguration(cfg =>
         {
             cfg.CreateMap<Product, ViewOnlyProductDto>();
             cfg.CreateMap<Shop, ViewOnlyShopDto>();
+            cfg.CreateMap<Category, ViewCategoryDto>();
         });
         var query = _db.Products
-            .Include(p=>p.Shop)
+            .Include(p => p.Shop)
+            .Include(p => p.Categories)
             .Where(s => !s.IsDeleted).OrderByDescending(s => s.CreatedAt)
-            .ProjectTo<ViewOnlyProductDto>(config);
+            .ProjectTo<ViewOnlyProductDto>(mapping);
         var result = await PaginationUtil.Paginate(query, paginationParams.Page, paginationParams.Size);
         return result;
     }
@@ -106,8 +111,9 @@ public class ProductService
             var categories = await _db.Categories.Where(c => !c.IsDeleted)
                 .Where(c => productDto.Categories.Contains(c.Id))
                 .ToListAsync();
-            if(!categories.IsNullOrEmpty()) product.Categories = categories;
+            if (!categories.IsNullOrEmpty()) product.Categories = categories;
         }
+
         if (productDto.ShopId != null)
         {
             var userId = (int)CurrentUser.Get("id");
@@ -119,6 +125,7 @@ public class ProductService
             product.ShopId = shop.Id;
             product.Shop = shop;
         }
+
         await _db.SaveChangesAsync();
         return product;
     }

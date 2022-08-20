@@ -25,8 +25,8 @@ public class Product : BaseEntity
 
     public double? Price { get; set; }
     public int? Quantity { get; set; }
-    public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
-    public virtual ICollection<ProductVariation> Variations { get; set; } = new List<ProductVariation>();
+    [JsonIgnore] public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
+    [JsonIgnore] public virtual ICollection<ProductVariation> Variations { get; set; } = new List<ProductVariation>();
     public int? ShopId { get; set; }
     [JsonIgnore] public virtual Shop? Shop { get; set; }
 }
