@@ -18,6 +18,6 @@ public class ShopService
             .Where(s => !s.IsDeleted)
             .OrderByDescending(s => s.CreatedAt)
             .ProjectTo<ViewOnlyShopDto>(MappingUtil.Map<Shop, ViewOnlyShopDto>());
-        return await PaginationUtil.Paginate(query, paginationParams.Page, paginationParams.Size);
+        return await PaginationUtil.Paginate(query, paginationParams.page, paginationParams.size);
     }
 }

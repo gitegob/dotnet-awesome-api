@@ -17,6 +17,6 @@ public class CategoryService
             .Where(s => !s.IsDeleted)
             .OrderByDescending(s => s.CreatedAt)
             .ProjectTo<ViewCategoryDto>(MappingUtil.Map<Category, ViewCategoryDto>());
-        return await PaginationUtil.Paginate(query, paginationParams.Page, paginationParams.Size);
+        return await PaginationUtil.Paginate(query, paginationParams.page, paginationParams.size);
     }
 }

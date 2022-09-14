@@ -39,7 +39,7 @@ public class UserService
     public async Task<Page<ViewUserDto>> GetUsers(PaginationParams paginationParams)
     {
         var query = _db.Users.Where(u => !u.IsDeleted).ProjectTo<ViewUserDto>(MappingUtil.Map<User, ViewUserDto>());
-        var results = await PaginationUtil.Paginate(query, paginationParams.Page, paginationParams.Size);
+        var results = await PaginationUtil.Paginate(query, paginationParams.page, paginationParams.size);
         return results;
     }
 

@@ -74,7 +74,7 @@ public class ProductService
             .Include(p => p.Categories)
             .Where(s => !s.IsDeleted).OrderByDescending(s => s.CreatedAt)
             .ProjectTo<ViewOnlyProductDto>(mapping);
-        var result = await PaginationUtil.Paginate(query, paginationParams.Page, paginationParams.Size);
+        var result = await PaginationUtil.Paginate(query, paginationParams.page, paginationParams.size);
         return result;
     }
 

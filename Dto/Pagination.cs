@@ -20,4 +20,4 @@ public class Page<T>
     public int TotalPages { get; set; }
 }
 
-public record PaginationParams(int Page = 0, int Size = 10);
+public record PaginationParams(int page = 0, int size = 10);
